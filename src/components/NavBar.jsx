@@ -8,21 +8,26 @@ import { navLinks } from '../index/constants'
 import arrowdownIcon from '../assets/icons/arrowdownIcon.svg'
 import addToCartDesktop from '../assets/icons/addToCartDesktop.svg'
 import searchIconDesktop from '../assets/icons/searchIconDesktop.svg'
-
-
+import { Link, Links } from 'react-router-dom'
+import Cart from './Cart'
+import HomePage from '../screens/HomePage'
 
 
 const NavBar = () => {
     const [isOpen, setisOpen] = useState(false)
+    
+
     return (
         <div className="">
 
             <div className="w-full h-11 bg-[#001F3F] flex justify-between  items-center px-3 md:justify-center md:h-12">
-                <button><img className="w-[7.5rem] md:w-[10rem]" src={mayankaLogo} alt="" /></button>
+                <Link to={'/homepage'} title='Mayanka Home'><img  className="w-[7.5rem] md:w-[10rem]" src={mayankaLogo} alt="" /></Link>
                 <div className="flex gap-3 md:hidden">
-                    <button className="">
+                    <Link className=""
+                    to={"/cart"}
+                    >
                         <img className="w-[1.2rem]" src={addToCart} alt="" />
-                    </button>
+                    </Link>
                     <button className="">
                         <img className="w-[1.2rem]" src={searchIcon} alt="" />
                     </button>
@@ -33,9 +38,9 @@ const NavBar = () => {
                 </div>
             </div>
             <div className={`fixed top-0 left-0  bg-[#001F3F] w-full  flex flex-col  transform transition-transform ${isOpen ? "translate-y-0" : "-translate-y-full"
-                } duration-400 ease-in-out md:hidden`}>
+                } duration-400 ease-in-out md:hidden z-10`}>
                 <div className="flex items-center justify-between px-3 h-11">
-                    <button><img className="w-[7.5rem]" src={mayankaLogo} alt="" /></button>
+                    <Link to={'/homepage'} title='Mayanka Home'><img className="w-[7.5rem]" src={mayankaLogo} alt="" /></Link>
                     <button><img className="w-[0.9rem]"
                         src={closeIcon}
                         alt=""
@@ -48,7 +53,7 @@ const NavBar = () => {
                         <ul className='flex flex-col items-center gap-6'>
                             {navLinks.map((item) => (
                                 <li className='list-none' key={item.label}>
-                                    <a className="text-white font-sans tracking-wide " href={item.href}>{item.label}</a>
+                                    <Link className="text-white font-sans tracking-wide " to={item.href}>{item.label}</Link>
                                 </li>
                             ))}
                         </ul>
@@ -59,8 +64,8 @@ const NavBar = () => {
 
             <nav className="">
 
-                <div class=" hidden md:flex md:items-center md:h-14 md:white md:py-4">
-                    <div class="flex-1 p-2">
+                <div className=" hidden md:flex md:items-center md:h-14 md:bg-white ">
+                    <div className="flex-1 p-2">
                         <button title='Products' className="flex w-full">
                             <div className="flex gap-3 items-center justify-start ps-2 ">
                                 <span className='max-[1220px]:hidden font-medium text-[#001F3F]'>Products</span>
@@ -68,38 +73,42 @@ const NavBar = () => {
                             </div>
                         </button>
                     </div>
-                    <div class="flex-5 p-2">
-                        <ul className="flex  gap-12">
+                    <div className="flex-5 flex px-2 h-full ">
+                        <ul className="flex items-center gap-10 h-full ">
                             {navLinks.map((item) => (
-                                <li className="list-none  text-gray-900" key={item.label} title={item.label}>
-                                    <a className="font-sans tracking-wide" href={item.href}>{item.label}</a>
+                                <li className="flex items-center list-none pt-1 transition duration-150  border-white border-b-3 hover:border-b-3 hover:bg-[#CDE2EB90] hover:border-[#3A6D8C] focus:border-b-3 focus:bg-[#CDE2EB90] focus:border-[#3A6D8C]  px-2 h-full  text-gray-900" key={item.label} title={item.label}>
+                                    <Link className="font-sans tracking-wide" to={item.href}>{item.label}</Link>
                                 </li>
+                                
                             ))}
                         </ul>
                     </div>
-                    <div class="flex-4 text-white px-2 py-1">
-                        <form class="max-w-md mx-auto w-full ">
-                            <div class="flex">
-                                <div class="relative w-full">
-                                    <input type="search" class="block p-2.5 w-full z-20 text-sm rounded-sm text-gray-900 bg-[#CDE2EB]  border-s-gray-50 placeholder:text-[#587B9B] outline-0" placeholder="Search for product" required />
-                                    <button type="submit" class="absolute top-0 end-0 h-full p-2  font-medium bg-[#CDE2EB] rounded-e-sm">
+                    <div className="flex-4 text-white px-2 py-1">
+                        <form className="max-w-md mx-auto w-full ">
+                            <div className="flex">
+                                <div className="relative w-full">
+                                    <input type="search" className="block p-2.5 w-full z-20 text-sm rounded-sm text-gray-900 bg-[#CDE2EB]  border-s-gray-50 placeholder:text-[#587B9B] outline-0" placeholder="Search for product" required />
+                                    <button type="submit" className="absolute top-0 end-0 h-full p-2  font-medium bg-[#CDE2EB] rounded-e-sm">
                                         <img className='w-5' src={searchIconDesktop} alt="search icon" />
-                                        <span class="sr-only">Search</span>
+                                        <span className="sr-only">Search</span>
                                     </button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div class="flex-1 p-2">
-                        <button title='My cart' className="flex w-full">
+                    <div className="flex-1 p-2">
+                        <Link title='My cart' className="flex w-full"
+                        to={"/cart"}
+                        >
                             <div className="flex w-full gap-2 items-center justify-end pe-2">
                                 <span className='max-[1220px]:hidden font-medium text-[#001F3F]'>My Cart</span>
                                 <img className='w-[1.3rem] max-[1220px]:w-[1.5rem]' src={addToCartDesktop} alt="" />
                             </div>
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </nav>
+            
 
         </div>
     )
